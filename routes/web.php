@@ -19,5 +19,8 @@ Route::get('/support-research', function () {
     return Inertia::render('SupportResearch');
 })->name('support.research');
 
+Route::get('/donate', function () {
+    return Inertia::render('Donate');
+})->name('donate');
 
 require __DIR__.'/auth.php';

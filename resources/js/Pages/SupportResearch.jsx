@@ -61,7 +61,7 @@ export default function SupportResearch() {
               You can be part of the solution. Together, we can push science forward — and give millions of people hope.
             </p>
             <Link
-              href="#"
+              href={ route("donate") }
               className="inline-block bg-indigo-600 text-white hover:bg-indigo-700 font-semibold py-3 px-6 rounded-lg transition"
             >
               Donate Now
