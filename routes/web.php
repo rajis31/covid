@@ -15,12 +15,16 @@ Route::get('/', function () {
 });
 
 
-Route::get('/support-research', function () {
-    return Inertia::render('SupportResearch');
-})->name('support.research');
+Route::get('/', function () {
+    return Inertia::render('Home');
+})->name('home');
 
 Route::get('/donate', function () {
     return Inertia::render('Donate');
 })->name('donate');
+
+Route::get('/login', [AuthController::class, 'showLogin'])
+    ->name('login');
+
 
 require __DIR__.'/auth.php';

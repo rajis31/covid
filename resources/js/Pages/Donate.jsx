@@ -38,8 +38,8 @@ export default function Donate() {
             </div>
 
             <div className="max-w-2xl mx-auto w-full px-4">
-                <Tabs defaultValue="account" className="w-full">
-                    <TabsList className="grid grid-cols-2 w-full mb-6">
+                <Tabs defaultValue="GiveButter" className="w-full">
+                    <TabsList className="grid grid-cols-2 w-full mb-6" op>
                         <TabsTrigger value="GiveButter">GiveButter</TabsTrigger>
                         <TabsTrigger value="GoFundMe">Go Fund Me</TabsTrigger>
                     </TabsList>
