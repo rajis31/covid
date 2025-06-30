@@ -1,18 +1,12 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestimonialController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
 
 
 Route::get('/', function () {
@@ -24,7 +18,15 @@ Route::get('/donate', function () {
 })->name('donate');
 
 Route::get('/login', [AuthController::class, 'showLogin'])
-    ->name('login');
+    ->name('login.show');
+
+Route::get('/register', [AuthController::class, 'showRegister'])
+    ->name('register.show');
+
+Route::post('/register', [AuthController::class, 'register'])
+    ->name('register');
 
 
-require __DIR__.'/auth.php';
+Route::group(['prefix' => 'testimonial'], function () {
+    Route::get('/',  [TestimonialController::class, 'showTestimonial']);
+});

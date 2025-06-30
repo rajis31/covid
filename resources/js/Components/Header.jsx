@@ -6,7 +6,7 @@ export default function Header() {
         <header className="bg-white shadow-md sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 <Link href="/" className="text-2xl font-bold text-indigo-700">
-                    Long COVID Research Fund
+                    Long COVID Support
                 </Link>
 
                 <nav className="space-x-4">
@@ -32,7 +32,7 @@ export default function Header() {
                         <Link href={route("donate")}>Give Now</Link>
                     </Button>
                     <Link
-                        href={route("login")}
+                        href={route("login.show")}
                         className="text-gray-700 hover:text-indigo-600 font-medium"
                     >
                         Login
