@@ -37,7 +37,7 @@ export default function Testimonial() {
             {
                 content,
                 is_anonymous: isAnonymous,
-                symptoms: selectedSymptoms,
+                symptoms: symptomValues, // ✅ correct shape
             },
             {
                 onSuccess: () => {
@@ -47,7 +47,7 @@ export default function Testimonial() {
                     setSelectedSymptoms([]);
                 },
                 onError: (errors) => {
-                    console.error(errors); // Optionally show errors in the UI
+                    console.error(errors);
                 },
             }
         );

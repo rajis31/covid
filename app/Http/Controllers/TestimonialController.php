@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\Testimonial;
 
 class TestimonialController extends Controller
 {
@@ -24,6 +24,6 @@ class TestimonialController extends Controller
 
         Testimonial::create($validated);
 
-        return response()->json(['message' => 'Testimonial submitted successfully.']);
+        return redirect()->back()->with('success', 'Testimonial submitted successfully.');
     }
 }
