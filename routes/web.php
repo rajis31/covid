@@ -29,4 +29,5 @@ Route::post('/register', [AuthController::class, 'register'])
 
 Route::group(['prefix' => 'testimonial'], function () {
     Route::get('/',  [TestimonialController::class, 'showTestimonial']);
+    Route::post('/store',  [TestimonialController::class, 'store']);
 });

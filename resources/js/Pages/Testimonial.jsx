@@ -1,4 +1,6 @@
 import { useState } from "react";
+import CreatableSelect from "react-select/creatable";
+import makeAnimated from "react-select/animated";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,28 +14,48 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
+import { symptomOptions } from "@/data/symptoms";
+import { router } from "@inertiajs/react";
+
+const animatedComponents = makeAnimated();
 
 export default function Testimonial() {
     const [content, setContent] = useState("");
     const [isAnonymous, setIsAnonymous] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [selectedSymptoms, setSelectedSymptoms] = useState([]);
+    const [error, setError] = useState("");
 
-
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
         if (!content.trim()) return;
 
-        // Normally you'd post to the backend here
-        console.log("Submitting:", { content, isAnonymous });
+        const symptomValues = selectedSymptoms.map((s) => s.value);
 
-        setSubmitted(true);
-        setContent("");
-        setIsAnonymous(false);
+        router.post(
+            "/testimonial/store",
+            {
+                content,
+                is_anonymous: isAnonymous,
+                symptoms: selectedSymptoms,
+            },
+            {
+                onSuccess: () => {
+                    setSubmitted(true);
+                    setContent("");
+                    setIsAnonymous(false);
+                    setSelectedSymptoms([]);
+                },
+                onError: (errors) => {
+                    console.error(errors); // Optionally show errors in the UI
+                },
+            }
+        );
     };
 
     return (
         <>
             <Header />
-
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-100 py-12 px-4 flex flex-col items-center">
                 <div className="w-full max-w-2xl">
                     <Card className="mb-6">
@@ -50,15 +72,35 @@ export default function Testimonial() {
                                 </div>
                             )}
 
+                            {error && (
+                                <div className="text-red-700 bg-red-100 border border-red-300 p-2 rounded text-sm">
+                                    {error}
+                                </div>
+                            )}
+
                             <div>
-                                <Label htmlFor="testimonial">Your Story</Label>
+                                <Label>Your Story</Label>
                                 <Textarea
-                                    id="testimonial"
                                     value={content}
                                     onChange={(e) => setContent(e.target.value)}
                                     placeholder="Tell us about your long COVID journey..."
                                     className="mt-1"
                                     rows={5}
+                                />
+                            </div>
+
+                            <div>
+                                <Label>Symptoms Experienced</Label>
+                                <CreatableSelect
+                                    closeMenuOnSelect={false}
+                                    components={animatedComponents}
+                                    isMulti
+                                    isSearchable
+                                    onChange={setSelectedSymptoms}
+                                    value={selectedSymptoms}
+                                    options={symptomOptions}
+                                    placeholder="Select or type to add symptoms..."
+                                    className="mt-1"
                                 />
                             </div>
 
@@ -77,32 +119,13 @@ export default function Testimonial() {
                         </CardContent>
 
                         <CardFooter>
-                            <Button onClick={handleSubmit} className="w-full">
+                            <Button onClick={handleSubmit} className="w-full" type="button">
                                 Submit Testimonial
                             </Button>
                         </CardFooter>
                     </Card>
-
-                    <div className="space-y-6">
-                        <h2 className="text-xl font-semibold text-gray-800">
-                            What Others Are Saying
-                        </h2>
-                        {/* {testimonials.map((t) => (
-                            <Card key={t.id}>
-                                <CardContent className="py-4">
-                                    <p className="text-gray-700 whitespace-pre-wrap">
-                                        {t.content}
-                                    </p>
-                                    <p className="text-sm text-gray-500 mt-2">
-                                        — {t.name || "Anonymous"}
-                                    </p>
-                                </CardContent>
-                            </Card>
-                        ))} */}
-                    </div>
                 </div>
             </div>
-
             <Footer />
         </>
     );
