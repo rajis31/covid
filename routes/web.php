@@ -3,14 +3,16 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestimonialController;
+use App\Models\Testimonial;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-
-
 Route::get('/', function () {
-    return Inertia::render('Home');
+    $testimonials = Testimonial::orderBy('created_at', 'desc')->limit(5)->get();
+    return Inertia::render('Home', [
+        'testimonials' => $testimonials,
+    ]);
 })->name('home');
 
 Route::get('/donate', function () {
@@ -26,8 +28,7 @@ Route::get('/register', [AuthController::class, 'showRegister'])
 Route::post('/register', [AuthController::class, 'register'])
     ->name('register');
 
-
 Route::group(['prefix' => 'testimonial'], function () {
-    Route::get('/',  [TestimonialController::class, 'showTestimonial']);
-    Route::post('/store',  [TestimonialController::class, 'store']);
+    Route::get('/', [TestimonialController::class, 'showTestimonial']);
+    Route::post('/store', [TestimonialController::class, 'store']);
 });

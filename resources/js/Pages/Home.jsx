@@ -1,9 +1,19 @@
 import React from "react";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function Home() {
+    const { testimonials } = usePage().props;
+
     return (
         <>
             <Header />
@@ -28,7 +38,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* Impact & Summary Section */}
+                {/* Impact Section */}
                 <section className="py-20 px-6 bg-yellow-50">
                     <div className="max-w-5xl mx-auto text-gray-800">
                         <h2 className="text-3xl font-bold mb-6 text-yellow-800 text-center">
@@ -44,10 +54,11 @@ export default function Home() {
                         </p>
                         <p className="mb-4 text-lg leading-relaxed">
                             In the U.S. alone, it's estimated that{" "}
-                            <strong>21 million people</strong>—including{" "}
-                            <strong>5.8 million children</strong>—are currently
-                            living with Long COVID. Yet despite the widespread
-                            impact, research funding remains critically low.
+                            <strong>21 million people</strong> — including{" "}
+                            <strong>5.8 million children</strong> — are
+                            currently living with Long COVID. Yet despite the
+                            widespread impact, research funding remains
+                            critically low.
                         </p>
                         <p className="mb-4 text-lg leading-relaxed">
                             Patients are often left to navigate this condition
@@ -66,15 +77,14 @@ export default function Home() {
                         </h2>
                         <p className="text-gray-700 text-lg mb-6">
                             Long COVID is a complex, post-viral illness that
-                            affects multiple body systems which include the 
-                            GI System, Heart, Brain, Muscular, and much more —
-                            even months or years after a COVID-19 infection. Long Covid
-                            is defined to be any set of symptoms that you experience 
-                            for 3 months or longer after the infection. 
-                            It’s impacting millions of people globally,
-                            regardless of age or health history.
+                            affects multiple body systems which include the GI
+                            System, Heart, Brain, Muscular, and much more — even
+                            months or years after a COVID-19 infection. Long
+                            Covid is defined to be any set of symptoms that you
+                            experience for 3 months or longer after the
+                            infection. It’s impacting millions of people
+                            globally, regardless of age or health history.
                         </p>
-
                         <h3 className="text-2xl font-semibold mb-2">
                             Why We Exist
                         </h3>
@@ -96,7 +106,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* Research Topics Section */}
+                {/* Research Section */}
                 <section className="py-20 px-6 bg-white">
                     <div className="max-w-5xl mx-auto text-center">
                         <h2 className="text-3xl font-bold mb-6">
@@ -126,18 +136,46 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* Testimonial Section */}
+                {/* Testimonial Carousel */}
                 <section className="py-16 px-6 bg-gray-100">
-                    <div className="max-w-3xl mx-auto text-center">
-                        <blockquote className="italic text-gray-700 text-xl">
-                            “Long COVID took my energy, my job, and my ability
-                            to live normally. But it didn’t take my voice.
-                            Supporting research gives me — and millions like me
-                            — a chance at recovery.”
-                        </blockquote>
-                        <p className="mt-4 text-gray-600 font-semibold">
-                            — Anonymous Long COVID Patient
-                        </p>
+                    <div className="max-w-5xl mx-auto">
+                        <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
+                            Real Patient Voices
+                        </h2>
+                        {testimonials && testimonials.length > 0 && (
+                            <Carousel>
+                                <CarouselContent>
+                                    {testimonials.slice(0, 5).map((t, i) => (
+                                        <CarouselItem
+                                            key={i}
+                                            className="md:basis-1/2 lg:basis-1/3"
+                                        >
+                                            <Card className="h-full shadow-sm">
+                                                <CardContent className="p-6">
+                                                    <p className="text-gray-700 italic mb-3">
+                                                        "
+                                                        {t.story?.length > 200
+                                                            ? t.story.slice(
+                                                                  0,
+                                                                  200
+                                                              ) + "..."
+                                                            : t.story}
+                                                        "
+                                                    </p>
+                                                    <p className="text-gray-500 text-sm font-semibold">
+                                                        {t.is_anonymous 
+                                                            ? t.anonymous_user_id
+                                                            : t.name}
+                                                    </p>
+                                                </CardContent>
+                                            </Card>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                                <CarouselPrevious />
+                                <CarouselNext />
+                            </Carousel>
+                        )}
                     </div>
                 </section>
             </div>

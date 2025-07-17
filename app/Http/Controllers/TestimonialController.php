@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Str;
-
+use Inertia\Inertia;
 
 class TestimonialController extends Controller
 {
@@ -23,11 +22,11 @@ class TestimonialController extends Controller
             'symptoms.*' => 'string',
         ]);
 
-        if($request->has("is_anonymous") && $request->is_anonymous){
+        if ($request->has('is_anonymous') && $request->is_anonymous) {
             $anonymous_user_id = Str::uuid();
         }
 
-       Testimonial::create([
+        Testimonial::create([
             'name' => $request->name,
             'email' => $request->email,
             'story' => $request->story,
