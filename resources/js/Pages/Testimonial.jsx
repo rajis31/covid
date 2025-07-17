@@ -20,37 +20,62 @@ import { router } from "@inertiajs/react";
 const animatedComponents = makeAnimated();
 
 export default function Testimonial() {
-    const [name, setName] = useState(""); // ✅ added
-    const [email, setEmail] = useState(""); // ✅ added
-    const [content, setContent] = useState("");
-    const [isAnonymous, setIsAnonymous] = useState(false);
+    const [data, setData] = useState({
+        name: "",
+        email: "",
+        content: "",
+        isAnonymous: false,
+        selectedSymptoms: [],
+        lastInfectionDate: "",
+        infectionCount: "",
+        isVaccinated: false,
+        vaccineType: "",
+        vaccineDoses: "",
+    });
+
     const [submitted, setSubmitted] = useState(false);
-    const [selectedSymptoms, setSelectedSymptoms] = useState([]);
     const [error, setError] = useState("");
+
+    const handleChange = (key) => (e) => {
+        const value = e?.target?.value ?? e;
+        setData((prev) => ({ ...prev, [key]: value }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!content.trim()) return;
+        if (!data.content.trim()) return;
 
-        const symptomValues = selectedSymptoms.map((s) => s.value);
+        const symptomValues = data.selectedSymptoms.map((s) => s.value);
 
         router.post(
             "/testimonial/store",
             {
-                name,
-                email,
-                content,
-                is_anonymous: isAnonymous,
+                name: data.name,
+                email: data.email,
+                content: data.content,
+                is_anonymous: data.isAnonymous,
                 symptoms: symptomValues,
+                last_infection_date: data.lastInfectionDate,
+                infection_count: data.infectionCount,
+                is_vaccinated: data.isVaccinated,
+                vaccine_type: data.vaccineType,
+                vaccine_doses: data.vaccineDoses,
             },
             {
                 onSuccess: () => {
                     setSubmitted(true);
-                    setName("");
-                    setEmail("");
-                    setContent("");
-                    setIsAnonymous(false);
-                    setSelectedSymptoms([]);
+                    setData({
+                        name: "",
+                        email: "",
+                        content: "",
+                        isAnonymous: false,
+                        selectedSymptoms: [],
+                        lastInfectionDate: "",
+                        infectionCount: "",
+                        isVaccinated: false,
+                        vaccineType: "",
+                        vaccineDoses: "",
+                    });
                 },
                 onError: (errors) => {
                     console.error(errors);
@@ -86,34 +111,129 @@ export default function Testimonial() {
                                 )}
 
                                 <div>
-                                    <Label htmlFor="name" className="font-bold">Name</Label>
+                                    <Label htmlFor="name" className="font-bold">
+                                        Name
+                                    </Label>
                                     <input
                                         type="text"
                                         id="name"
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
+                                        value={data.name}
+                                        onChange={handleChange("name")}
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
                                         placeholder="Your name"
                                     />
                                 </div>
 
                                 <div>
-                                    <Label htmlFor="email" className="font-bold">Email</Label>
+                                    <Label
+                                        htmlFor="email"
+                                        className="font-bold"
+                                    >
+                                        Email
+                                    </Label>
                                     <input
                                         type="email"
                                         id="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
+                                        value={data.email}
+                                        onChange={handleChange("email")}
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
                                         placeholder="you@example.com"
                                     />
                                 </div>
 
                                 <div>
-                                    <Label className="font-bold">Your Story</Label>
+                                    <Label className="font-bold">
+                                        Date of Last Infection
+                                    </Label>
+                                    <input
+                                        type="date"
+                                        value={data.lastInfectionDate}
+                                        onChange={handleChange(
+                                            "lastInfectionDate"
+                                        )}
+                                        className="mt-1 block w-full rounded border border-gray-300 p-2"
+                                    />
+                                </div>
+
+                                <div>
+                                    <Label className="font-bold">
+                                        How Many Times Have You Been Infected?
+                                    </Label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        value={data.infectionCount}
+                                        onChange={handleChange(
+                                            "infectionCount"
+                                        )}
+                                        className="mt-1 block w-full rounded border border-gray-300 p-2"
+                                        placeholder="e.g. 3"
+                                    />
+                                </div>
+
+                                {/* Vaccination fields */}
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox
+                                        id="isVaccinated"
+                                        checked={data.isVaccinated}
+                                        onCheckedChange={(val) =>
+                                            setData((prev) => ({
+                                                ...prev,
+                                                isVaccinated: !!val,
+                                            }))
+                                        }
+                                    />
+                                    <Label
+                                        htmlFor="isVaccinated"
+                                        className="font-bold"
+                                    >
+                                        Are you vaccinated?
+                                    </Label>
+                                </div>
+
+                                {data.isVaccinated && (
+                                    <>
+                                        <div>
+                                            <Label className="font-bold">
+                                                Which vaccine did you receive?
+                                            </Label>
+                                            <input
+                                                type="text"
+                                                value={data.vaccineType}
+                                                onChange={handleChange(
+                                                    "vaccineType"
+                                                )}
+                                                className="mt-1 block w-full rounded border border-gray-300 p-2"
+                                                placeholder="e.g. Pfizer, Moderna, J&J"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <Label className="font-bold">
+                                                How many total doses (including
+                                                boosters)?
+                                            </Label>
+                                            <input
+                                                type="number"
+                                                min="0"
+                                                value={data.vaccineDoses}
+                                                onChange={handleChange(
+                                                    "vaccineDoses"
+                                                )}
+                                                className="mt-1 block w-full rounded border border-gray-300 p-2"
+                                                placeholder="e.g. 3"
+                                            />
+                                        </div>
+                                    </>
+                                )}
+
+                                <div>
+                                    <Label className="font-bold">
+                                        Your Story
+                                    </Label>
                                     <Textarea
-                                        value={content}
-                                        onChange={(e) => setContent(e.target.value)}
+                                        value={data.content}
+                                        onChange={handleChange("content")}
                                         placeholder="Tell us about your long COVID journey..."
                                         className="mt-1"
                                         rows={5}
@@ -121,14 +241,21 @@ export default function Testimonial() {
                                 </div>
 
                                 <div>
-                                    <Label className="font-bold">Symptoms Experienced</Label>
+                                    <Label className="font-bold">
+                                        Symptoms Experienced
+                                    </Label>
                                     <CreatableSelect
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
                                         isMulti
                                         isSearchable
-                                        onChange={setSelectedSymptoms}
-                                        value={selectedSymptoms}
+                                        onChange={(val) =>
+                                            setData((prev) => ({
+                                                ...prev,
+                                                selectedSymptoms: val,
+                                            }))
+                                        }
+                                        value={data.selectedSymptoms}
                                         options={symptomOptions}
                                         placeholder="Select or type to add symptoms..."
                                         className="mt-1"
@@ -138,12 +265,18 @@ export default function Testimonial() {
                                 <div className="flex items-center space-x-2">
                                     <Checkbox
                                         id="anonymous"
-                                        checked={isAnonymous}
+                                        checked={data.isAnonymous}
                                         onCheckedChange={(val) =>
-                                            setIsAnonymous(!!val)
+                                            setData((prev) => ({
+                                                ...prev,
+                                                isAnonymous: !!val,
+                                            }))
                                         }
                                     />
-                                    <Label htmlFor="anonymous" className="font-bold">
+                                    <Label
+                                        htmlFor="anonymous"
+                                        className="font-bold"
+                                    >
                                         Post Anonymously
                                     </Label>
                                 </div>
@@ -151,7 +284,7 @@ export default function Testimonial() {
 
                             <CardFooter>
                                 <Button type="submit" className="w-full">
-                                    Submit Testimonial
+                                    Submit Story
                                 </Button>
                             </CardFooter>
                         </form>

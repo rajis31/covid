@@ -12,20 +12,18 @@ export default function Home() {
                 <section className="bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-20 px-6 text-center">
                     <div className="max-w-3xl mx-auto">
                         <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                            Support Long COVID Research. Help Us Find Answers.
+                            Share Your Long COVID Experience
                         </h1>
                         <p className="text-lg md:text-xl mb-8">
                             Millions are suffering from Long COVID — a condition
                             that has left people debilitated, unheard, and
-                            without a cure. Your donation fuels real research,
-                            driven by patients, scientists, and advocates who
-                            won’t give up.
+                            without a cure. Help others by sharing your story.
                         </p>
                         <Link
-                            href={route("donate")}
+                            href="/testimonial"
                             className="inline-block bg-white text-indigo-700 hover:bg-gray-100 font-semibold py-3 px-6 rounded-lg transition"
                         >
-                            🔬 Donate to Research
+                            ✍️ Share Your Story
                         </Link>
                     </div>
                 </section>
@@ -40,7 +38,7 @@ export default function Home() {
                             <strong>Millions around the world</strong> continue
                             to suffer from Long COVID—a complex, debilitating
                             condition that can last for months or even years.
-                            COVID-19 is a multi-systemic virus with over 200
+                            COVID-19 is a multi-systemic virus with over 200+
                             documented symptoms including fatigue, brain fog,
                             chest pain, and digestive issues.
                         </p>
@@ -57,53 +55,6 @@ export default function Home() {
                             alone treated. Many are unable to work, and some
                             face severe financial hardship.
                         </p>
-                        <p className="mb-6 text-lg leading-relaxed font-medium text-yellow-900">
-                            It’s time to change that. This fundraiser directly
-                            supports science-based research into diagnostics,
-                            treatments, and ultimately — hope.
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left bg-white border border-yellow-200 rounded-xl p-6 shadow-md">
-                            <div>
-                                <h3 className="text-xl font-semibold mb-2 text-yellow-700">
-                                    Where Your Donation Goes:
-                                </h3>
-                                <ul className="list-disc list-inside space-y-2 text-lg">
-                                    <li>
-                                        🔬 Develop accurate diagnostic tools
-                                    </li>
-                                    <li>
-                                        💊 Fund innovative, promising treatment
-                                        research
-                                    </li>
-                                    <li>
-                                        🤝 Provide aid to patients unable to
-                                        work or afford care
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="flex flex-col justify-center text-lg">
-                                <p className="mb-4">
-                                    <strong>No overhead. No waste.</strong> Just
-                                    focused, life-changing impact.
-                                </p>
-                                <p>
-                                    Whether it’s <strong>$5 or $500</strong>,
-                                    your donation fuels real progress. Join us
-                                    in giving people a chance at recovery and a
-                                    better life.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="mt-10 text-center">
-                            <Link
-                                href={route("donate")}
-                                className="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3 px-6 rounded-lg transition"
-                            >
-                                🌟 Give Hope. Fund Progress.
-                            </Link>
-                        </div>
                     </div>
                 </section>
 
@@ -115,8 +66,11 @@ export default function Home() {
                         </h2>
                         <p className="text-gray-700 text-lg mb-6">
                             Long COVID is a complex, post-viral illness that
-                            affects the nervous system, gut, lungs, and beyond —
-                            even months or years after a COVID-19 infection.
+                            affects multiple body systems which include the 
+                            GI System, Heart, Brain, Muscular, and much more —
+                            even months or years after a COVID-19 infection. Long Covid
+                            is defined to be any set of symptoms that you experience 
+                            for 3 months or longer after the infection. 
                             It’s impacting millions of people globally,
                             regardless of age or health history.
                         </p>
@@ -125,8 +79,7 @@ export default function Home() {
                             Why We Exist
                         </h3>
                         <p className="text-gray-700 text-lg">
-                            We are a patient-led initiative raising funds to
-                            support{" "}
+                            We are a patient-led initiative supporting{" "}
                             <strong>
                                 urgent, independent Long COVID research
                             </strong>{" "}
@@ -143,16 +96,14 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* Donation Appeal Section */}
+                {/* Research Topics Section */}
                 <section className="py-20 px-6 bg-white">
                     <div className="max-w-5xl mx-auto text-center">
                         <h2 className="text-3xl font-bold mb-6">
-                            Every Dollar Drives Discovery
+                            Research Areas of Focus
                         </h2>
                         <p className="text-gray-700 text-lg mb-10">
-                            Unlike large institutions that take years to act,
-                            we’re channeling your donations directly into
-                            fast-moving projects:
+                            We support fast-moving studies focused on:
                         </p>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left text-gray-800">
                             <ul className="space-y-3 list-disc list-inside">
@@ -171,19 +122,6 @@ export default function Home() {
                                 </li>
                                 <li>🌍 Global patient-led studies</li>
                             </ul>
-                        </div>
-                        <div className="mt-10">
-                            <p className="text-lg font-medium mb-4">
-                                You can be part of the solution. Together, we
-                                can push science forward — and give millions of
-                                people hope.
-                            </p>
-                            <Link
-                                href={route("donate")}
-                                className="inline-block bg-indigo-600 text-white hover:bg-indigo-700 font-semibold py-3 px-6 rounded-lg transition"
-                            >
-                                Donate Now
-                            </Link>
                         </div>
                     </div>
                 </section>
