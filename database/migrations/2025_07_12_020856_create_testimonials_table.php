@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->text('content');
-            $table->boolean('is_anonymous')->default(false);
+            $table->boolean('is_anonymous')->nullable()->default(false);
             $table->json('symptoms'); 
             $table->timestamps();
         });

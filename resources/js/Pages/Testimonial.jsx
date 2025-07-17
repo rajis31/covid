@@ -15,6 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import { symptomOptions } from "@/data/symptoms";
+import { treatmentOptions } from "@/data/treatments";
 import { router } from "@inertiajs/react";
 
 const animatedComponents = makeAnimated();
@@ -26,6 +27,7 @@ export default function Testimonial() {
         content: "",
         isAnonymous: false,
         selectedSymptoms: [],
+        selectedTreatments: [],
         lastInfectionDate: "",
         infectionCount: "",
         isVaccinated: false,
@@ -43,23 +45,28 @@ export default function Testimonial() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!data.content.trim()) return;
+        if (!data.content.trim()) {
+            setError("Story is required.");
+            return;
+        }
 
         const symptomValues = data.selectedSymptoms.map((s) => s.value);
+        const treatmentValues = data.selectedTreatments.map((t) => t.value);
 
         router.post(
             "/testimonial/store",
             {
                 name: data.name,
                 email: data.email,
-                content: data.content,
+                story: data.content,
                 is_anonymous: data.isAnonymous,
                 symptoms: symptomValues,
+                treatments: treatmentValues,
                 last_infection_date: data.lastInfectionDate,
-                infection_count: data.infectionCount,
-                is_vaccinated: data.isVaccinated,
+                num_of_times_infected: data.infectionCount,
+                vaccinated: data.isVaccinated,
                 vaccine_type: data.vaccineType,
-                vaccine_doses: data.vaccineDoses,
+                num_of_vaccines: data.vaccineDoses,
             },
             {
                 onSuccess: () => {
@@ -70,15 +77,18 @@ export default function Testimonial() {
                         content: "",
                         isAnonymous: false,
                         selectedSymptoms: [],
+                        selectedTreatments: [],
                         lastInfectionDate: "",
                         infectionCount: "",
                         isVaccinated: false,
                         vaccineType: "",
                         vaccineDoses: "",
                     });
+                    setError("");
                 },
                 onError: (errors) => {
                     console.error(errors);
+                    setError("Something went wrong. Please try again.");
                 },
             }
         );
@@ -125,10 +135,7 @@ export default function Testimonial() {
                                 </div>
 
                                 <div>
-                                    <Label
-                                        htmlFor="email"
-                                        className="font-bold"
-                                    >
+                                    <Label htmlFor="email" className="font-bold">
                                         Email
                                     </Label>
                                     <input
@@ -148,9 +155,7 @@ export default function Testimonial() {
                                     <input
                                         type="date"
                                         value={data.lastInfectionDate}
-                                        onChange={handleChange(
-                                            "lastInfectionDate"
-                                        )}
+                                        onChange={handleChange("lastInfectionDate")}
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
                                     />
                                 </div>
@@ -163,9 +168,7 @@ export default function Testimonial() {
                                         type="number"
                                         min="0"
                                         value={data.infectionCount}
-                                        onChange={handleChange(
-                                            "infectionCount"
-                                        )}
+                                        onChange={handleChange("infectionCount")}
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
                                         placeholder="e.g. 3"
                                     />
@@ -183,10 +186,7 @@ export default function Testimonial() {
                                             }))
                                         }
                                     />
-                                    <Label
-                                        htmlFor="isVaccinated"
-                                        className="font-bold"
-                                    >
+                                    <Label htmlFor="isVaccinated" className="font-bold">
                                         Are you vaccinated?
                                     </Label>
                                 </div>
@@ -200,9 +200,7 @@ export default function Testimonial() {
                                             <input
                                                 type="text"
                                                 value={data.vaccineType}
-                                                onChange={handleChange(
-                                                    "vaccineType"
-                                                )}
+                                                onChange={handleChange("vaccineType")}
                                                 className="mt-1 block w-full rounded border border-gray-300 p-2"
                                                 placeholder="e.g. Pfizer, Moderna, J&J"
                                             />
@@ -210,16 +208,13 @@ export default function Testimonial() {
 
                                         <div>
                                             <Label className="font-bold">
-                                                How many total doses (including
-                                                boosters)?
+                                                How many total doses (including boosters)?
                                             </Label>
                                             <input
                                                 type="number"
                                                 min="0"
                                                 value={data.vaccineDoses}
-                                                onChange={handleChange(
-                                                    "vaccineDoses"
-                                                )}
+                                                onChange={handleChange("vaccineDoses")}
                                                 className="mt-1 block w-full rounded border border-gray-300 p-2"
                                                 placeholder="e.g. 3"
                                             />
@@ -229,7 +224,7 @@ export default function Testimonial() {
 
                                 <div>
                                     <Label className="font-bold">
-                                        Your Story
+                                        Your Story <span className="text-red-500">*</span>
                                     </Label>
                                     <Textarea
                                         value={data.content}
@@ -242,7 +237,7 @@ export default function Testimonial() {
 
                                 <div>
                                     <Label className="font-bold">
-                                        Symptoms Experienced
+                                        Symptoms Experienced <span className="text-red-500">*</span>
                                     </Label>
                                     <CreatableSelect
                                         closeMenuOnSelect={false}
@@ -262,6 +257,28 @@ export default function Testimonial() {
                                     />
                                 </div>
 
+                                <div>
+                                    <Label className="font-bold">
+                                        Treatments or Supplements Used
+                                    </Label>
+                                    <CreatableSelect
+                                        closeMenuOnSelect={false}
+                                        components={animatedComponents}
+                                        isMulti
+                                        isSearchable
+                                        onChange={(val) =>
+                                            setData((prev) => ({
+                                                ...prev,
+                                                selectedTreatments: val,
+                                            }))
+                                        }
+                                        value={data.selectedTreatments}
+                                        options={treatmentOptions}
+                                        placeholder="Select or type to add treatments..."
+                                        className="mt-1"
+                                    />
+                                </div>
+
                                 <div className="flex items-center space-x-2">
                                     <Checkbox
                                         id="anonymous"
@@ -273,10 +290,7 @@ export default function Testimonial() {
                                             }))
                                         }
                                     />
-                                    <Label
-                                        htmlFor="anonymous"
-                                        className="font-bold"
-                                    >
+                                    <Label htmlFor="anonymous" className="font-bold">
                                         Post Anonymously
                                     </Label>
                                 </div>

@@ -15,10 +15,12 @@ return new class extends Migration {
             $table->string('email', 255)->nullable();
             $table->date('date_of_last_infection')->nullable();
             $table->integer('num_of_times_infected')->nullable();
-            $table->boolean("vaccinated")->nullable();
-            $table->string("vaccine_type", 255)->nullable();
+            $table->boolean('vaccinated')->nullable();
+            $table->string('vaccine_type', 255)->nullable();
             $table->integer('num_of_vaccines')->nullable();
             $table->text('story');
+            $table->string('anonymous_user_id', 255)->nullable();
+            $table->json('treatments')->nullable(); 
         });
     }
 
@@ -27,17 +29,23 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('testimonials', function (Blueprint $table) {
-            $table->dropColumn([
-                'name',
-                'email',
-                'date_of_last_infection',
-                'num_of_times_infected',
-                'story',
-                'vaccinated',
-                'vaccine_type',
-                'num_of_vaccines'
-            ]);
-        });
+        foreach ([
+            'name',
+            'email',
+            'date_of_last_infection',
+            'num_of_times_infected',
+            'story',
+            'vaccinated',
+            'vaccine_type',
+            'num_of_vaccines',
+            'anonymous_user_id',
+            'treatments'
+        ] as $column) {
+            if (Schema::hasColumn('testimonials', $column)) {
+                Schema::table('testimonials', function (Blueprint $table) use ($column) {
+                    $table->dropColumn($column);
+                });
+            }
+        }
     }
 };

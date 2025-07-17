@@ -1,0 +1,125 @@
+export const treatmentOptions = [
+    { label: "Acupuncture", value: "Acupuncture" },
+    { label: "Adaptogens (e.g. Rhodiola, Ashwagandha)", value: "Adaptogens" },
+    { label: "Antibiotics (e.g. Doxycycline)", value: "Antibiotics" },
+    {
+        label: "Anticoagulants / Antiplatelets (e.g. aspirin, nattokinase)",
+        value: "Anticoagulants",
+    },
+    { label: "Antidepressants (e.g. SSRI/SNRI)", value: "Antidepressants" },
+    {
+        label: "Antihistamines (e.g. Claritin, Zyrtec)",
+        value: "Antihistamines",
+    },
+    { label: "Antivirals (e.g. Valacyclovir)", value: "Antivirals" },
+    { label: "Ayurvedic Medicine", value: "Ayurvedic Medicine" },
+    { label: "B-Complex Vitamins", value: "B-Complex Vitamins" },
+    { label: "Breathwork / Buteyko", value: "Breathwork" },
+    {
+        label: "Carbonyl Iron (slow release, well-tolerated)",
+        value: "Carbonyl Iron",
+    },
+    { label: "Chinese Herbal Medicine", value: "Chinese Herbal Medicine" },
+    { label: "Cognitive Behavioral Therapy (CBT)", value: "CBT" },
+    { label: "CoQ10 / Ubiquinol", value: "CoQ10" },
+    { label: "Corticosteroids (short-term)", value: "Corticosteroids" },
+    {
+        label: "Ferrous Gluconate (milder than sulfate)",
+        value: "Ferrous Gluconate",
+    },
+    {
+        label: "Ferrous Sulfate (commonly prescribed, harsher on gut)",
+        value: "Ferrous Sulfate",
+    },
+    {
+        label: "Floradix Iron (liquid herbal-based iron)",
+        value: "Floradix Iron",
+    },
+    { label: "FMT (Fecal Microbiota Transplant)", value: "FMT" },
+    { label: "Functional Neurology", value: "Functional Neurology" },
+    { label: "Glutathione", value: "Glutathione" },
+    { label: "HBOT (Hyperbaric Oxygen Therapy)", value: "HBOT" },
+    {
+        label: "Heme Iron Polypeptide (animal-based, highly absorbable)",
+        value: "Heme Iron Polypeptide",
+    },
+    { label: "Histamine-Lowering Diet", value: "Histamine-Lowering Diet" },
+    {
+        label: "Hyperbaric Oxygen Therapy (HBOT)",
+        value: "Hyperbaric Oxygen Therapy",
+    },
+    {
+        label: "Iron Bisglycinate (gentle on stomach)",
+        value: "Iron Bisglycinate",
+    },
+    {
+        label: "Iron Polysaccharide (slow-release, gentler)",
+        value: "Iron Polysaccharide",
+    },
+    { label: "IV Therapy (e.g. Myers Cocktail)", value: "IV Therapy" },
+    { label: "LDN (Low Dose Naltrexone)", value: "LDN" },
+    { label: "Low Dose Naltrexone (LDN)", value: "Low Dose Naltrexone" },
+    { label: "Low FODMAP / Gut Healing Protocol", value: "Gut Healing Diet" },
+    {
+        label: "Magnesium Chloride (topical/oil for muscle relaxation)",
+        value: "Magnesium Chloride",
+    },
+    {
+        label: "Magnesium Citrate (digestion, mild laxative)",
+        value: "Magnesium Citrate",
+    },
+    {
+        label: "Magnesium Glycinate (calming, sleep support)",
+        value: "Magnesium Glycinate",
+    },
+    {
+        label: "Magnesium L-Lactate (used in metabolic support)",
+        value: "Magnesium L-Lactate",
+    },
+    {
+        label: "Magnesium Malate (energy, muscle pain)",
+        value: "Magnesium Malate",
+    },
+    {
+        label: "Magnesium Oxide (least absorbable, used for constipation)",
+        value: "Magnesium Oxide",
+    },
+    {
+        label: "Magnesium Sulfate (Epsom salt baths)",
+        value: "Magnesium Sulfate",
+    },
+    {
+        label: "Magnesium Taurate (heart rhythm & calming)",
+        value: "Magnesium Taurate",
+    },
+    {
+        label: "Magnesium Threonate (brain/neurological support)",
+        value: "Magnesium Threonate",
+    },
+    {
+        label: "Mast Cell Stabilizers (e.g. Cromolyn Sodium)",
+        value: "Mast Cell Stabilizers",
+    },
+    { label: "Melatonin", value: "Melatonin" },
+    {
+        label: "Mitochondrial Support (e.g. PQQ, L-Carnitine)",
+        value: "Mitochondrial Support",
+    },
+    { label: "NAC (N-Acetyl Cysteine)", value: "NAC" },
+    { label: "Nattokinase", value: "Nattokinase" },
+    { label: "Omega-3 Fatty Acids", value: "Omega-3" },
+    { label: "Pacing / Energy Management", value: "Pacing" },
+    { label: "PEA (Palmitoylethanolamide)", value: "PEA" },
+    { label: "Physical Therapy", value: "Physical Therapy" },
+    { label: "Probiotics", value: "Probiotics" },
+    { label: "Quercetin", value: "Quercetin" },
+    { label: "Serrapeptase", value: "Serrapeptase" },
+    {
+        label: "SiderAL (Sucrosomial Iron, very absorbable, low GI issues)",
+        value: "Sucrosomial Iron (SiderAL)",
+    },
+    { label: "Sleep Hygiene / Sleep Support", value: "Sleep Support" },
+    { label: "Vitamin C", value: "Vitamin C" },
+    { label: "Vitamin D", value: "Vitamin D" },
+    { label: "Zinc", value: "Zinc" },
+];
