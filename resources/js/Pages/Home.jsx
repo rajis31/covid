@@ -143,38 +143,49 @@ export default function Home() {
                             Real Patient Voices
                         </h2>
                         {testimonials && testimonials.length > 0 && (
-                            <Carousel>
-                                <CarouselContent>
-                                    {testimonials.slice(0, 5).map((t, i) => (
-                                        <CarouselItem
-                                            key={i}
-                                            className="md:basis-1/2 lg:basis-1/3"
-                                        >
-                                            <Card className="h-full shadow-sm">
-                                                <CardContent className="p-6">
-                                                    <p className="text-gray-700 italic mb-3">
-                                                        "
-                                                        {t.story?.length > 200
-                                                            ? t.story.slice(
-                                                                  0,
-                                                                  200
-                                                              ) + "..."
-                                                            : t.story}
-                                                        "
-                                                    </p>
-                                                    <p className="text-gray-500 text-sm font-semibold">
-                                                        {t.is_anonymous 
-                                                            ? t.anonymous_user_id
-                                                            : t.name}
-                                                    </p>
-                                                </CardContent>
-                                            </Card>
-                                        </CarouselItem>
-                                    ))}
-                                </CarouselContent>
-                                <CarouselPrevious />
-                                <CarouselNext />
-                            </Carousel>
+                            <section className="my-12 px-4 md:px-8 lg:px-16">
+                                <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-800">
+                                    What People Are Saying
+                                </h2>
+                                <Carousel>
+                                    <CarouselContent>
+                                        {testimonials
+                                            .slice(0, 5)
+                                            .map((t, i) => (
+                                                <CarouselItem
+                                                    key={i}
+                                                    className="md:basis-1/2 lg:basis-1/3 px-2"
+                                                >
+                                                    <Card className="h-full shadow-md border border-gray-100 rounded-xl bg-white">
+                                                        <CardContent className="p-6 flex flex-col justify-between h-full">
+                                                            <blockquote className="relative text-gray-800 italic text-base pl-6 mb-4">
+                                                                <span className="absolute left-0 -top-1 text-4xl text-indigo-400 font-serif leading-none">
+                                                                    “
+                                                                </span>
+                                                                {t.story
+                                                                    ?.length >
+                                                                200
+                                                                    ? t.story.slice(
+                                                                          0,
+                                                                          200
+                                                                      ) + "..."
+                                                                    : t.story}
+                                                            </blockquote>
+                                                            <footer className="text-sm text-gray-500 font-medium mt-auto text-right">
+                                                                —{" "}
+                                                                {t.is_anonymous
+                                                                    ? t.anonymous_user_id
+                                                                    : t.name}
+                                                            </footer>
+                                                        </CardContent>
+                                                    </Card>
+                                                </CarouselItem>
+                                            ))}
+                                    </CarouselContent>
+                                    <CarouselPrevious />
+                                    <CarouselNext />
+                                </Carousel>
+                            </section>
                         )}
                     </div>
                 </section>

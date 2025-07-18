@@ -38,7 +38,7 @@ class TestimonialController extends Controller
             'vaccinated' => $request->vaccinated,
             'vaccine_type' => $request->vaccine_type,
             'num_of_vaccines' => $request->num_of_vaccines,
-            'anonymous_user_id' => $request->is_anonymous ? $anonymous_user_id : null,
+            'anonymous_user_id' => $request->is_anonymous ?  "User-".$anonymous_user_id : null,
         ]);
         return redirect()->back()->with('success', 'Testimonial submitted successfully.');
     }
