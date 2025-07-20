@@ -2,21 +2,18 @@ import React from "react";
 import { Link, usePage } from "@inertiajs/react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel";
+import { ExampleChart } from "@/Components/charts/example-chart";
+import { StatsGrid } from "@/Components/charts/stats-grid";
 
 export default function Stats() {
-
     return (
         <>
             <Header />
-                <p>This is the stats page</p>
+            <div className="mx-auto w-[90%] mt-[50px]">
+                <StatsGrid />
+                <ExampleChart />
+            </div>
+
             <Footer />
         </>
     );
