@@ -142,7 +142,7 @@ export default function Home() {
                         <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
                             Real Patient Voices
                         </h2>
-                        {testimonials && testimonials.length > 0 && (
+                        {testimonials && testimonials.length > 0 ? (
                             <section className="my-12 px-4 md:px-8 lg:px-16">
                                 <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-800">
                                     What People Are Saying
@@ -186,6 +186,18 @@ export default function Home() {
                                     <CarouselNext />
                                 </Carousel>
                             </section>
+                        ) : (
+                            <div className="text-center text-gray-600 text-lg mt-10">
+                                🙁 There are no testimonials at this time. Be
+                                the first to{" "}
+                                <Link
+                                    href="/testimonial"
+                                    className="text-indigo-600 hover:underline font-medium"
+                                >
+                                    share your story
+                                </Link>
+                                .
+                            </div>
                         )}
                     </div>
                 </section>

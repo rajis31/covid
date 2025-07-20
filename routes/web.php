@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\StatsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestimonialController;
 use App\Models\Testimonial;
@@ -36,3 +37,7 @@ Route::group(['prefix' => 'testimonial'], function () {
     Route::get('/', [TestimonialController::class, 'showTestimonial']);
     Route::post('/store', [TestimonialController::class, 'store']);
 });
+
+// Stats
+Route::get('/stats', [StatsController::class, 'showStats'])
+    ->name('stats.show');
