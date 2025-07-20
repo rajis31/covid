@@ -3,10 +3,10 @@ import { Link } from "@inertiajs/react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 
-export default function About() {
+export default function About({ auth }) {
     return (
         <>
-            <Header />
+            <Header auth={auth} />
             <div className="bg-white">
                 {/* Hero Section */}
                 <section className="bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-20 px-6 text-center">

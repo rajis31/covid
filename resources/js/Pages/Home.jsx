@@ -11,12 +11,12 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export default function Home() {
+export default function Home({ auth }) {
     const { testimonials } = usePage().props;
 
     return (
         <>
-            <Header />
+            <Header auth={auth} />
             <div className="bg-white">
                 {/* Hero Section */}
                 <section className="bg-gradient-to-br from-indigo-600 to-purple-600 text-white py-20 px-6 text-center">

@@ -24,20 +24,27 @@ Route::get('/donate', function () {
     return Inertia::render('Donate');
 })->name('donate');
 
-Route::get('/login', [AuthController::class, 'showLogin'])
-    ->name('login.show');
+// Route::get('/login', [AuthController::class, 'showLogin'])
+//     ->name('login');
 
-Route::get('/register', [AuthController::class, 'showRegister'])
-    ->name('register.show');
+// Route::get('/register', [AuthController::class, 'showRegister'])
+//     ->name('register.show');
 
 Route::post('/register', [AuthController::class, 'register'])
     ->name('register');
 
-Route::group(['prefix' => 'testimonial'], function () {
-    Route::get('/', [TestimonialController::class, 'showTestimonial']);
-    Route::post('/store', [TestimonialController::class, 'store']);
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'testimonial'], function () {
+        Route::get('/', [TestimonialController::class, 'showTestimonial']);
+        Route::post('/store', [TestimonialController::class, 'store']);
+    });
 });
+
 
 // Stats
 Route::get('/stats', [StatsController::class, 'showStats'])
     ->name('stats.show');
+
+require __DIR__.'/auth.php';

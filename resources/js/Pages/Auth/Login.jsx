@@ -9,7 +9,7 @@ import {
     CardContent,
     CardFooter,
 } from "@/components/ui/card";
-import { Link, usePage } from "@inertiajs/react";
+import { Link, usePage, router } from "@inertiajs/react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 
@@ -20,10 +20,9 @@ export default function LoginPage() {
     const { props } = usePage();
     const successMessage = props.flash?.success;
 
-
-    useEffect(()=>{
-      console.log(successMessage);
-    },[successMessage])
+    useEffect(() => {
+        console.log(successMessage);
+    }, [successMessage]);
 
     const handleLogin = () => {
         if (!email || !password) {
@@ -32,7 +31,25 @@ export default function LoginPage() {
         }
 
         setError("");
-        console.log("Logging in with", { email, password });
+
+        router.post(
+            "/login",
+            { email, password },
+            {
+                onError: (errors) => {
+                    if (errors.email || errors.password) {
+                        setError(errors.email || errors.password);
+                    } else if (errors.message) {
+                        setError(errors.message);
+                    } else {
+                        setError("Login failed. Please try again.");
+                    }
+                },
+                onSuccess: () => {
+                    console.log("Logged in successfully!");
+                },
+            }
+        );
     };
 
     return (

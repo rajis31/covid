@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import makeAnimated from "react-select/animated";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,11 +16,12 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import { symptomOptions } from "@/data/symptoms";
 import { treatmentOptions } from "@/data/treatments";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 
 const animatedComponents = makeAnimated();
 
-export default function Testimonial() {
+export default function Testimonial({ auth }) {
+
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -94,9 +95,34 @@ export default function Testimonial() {
         );
     };
 
+    // Show alert if user is not authenticated
+    if (!auth) {
+        return (
+            <>
+                <Header auth={auth} />
+                <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-100 flex items-center justify-center px-4">
+                    <div className="w-full max-w-md">
+                        <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md shadow">
+                            <p className="font-semibold">
+                                You must be logged in to share your story.
+                            </p>
+                            <a
+                                href="/login"
+                                className="mt-3 inline-block bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded transition"
+                            >
+                                Go to Login
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <Footer />
+            </>
+        );
+    }
+
     return (
         <>
-            <Header />
+            <Header auth={auth} />
             <div className="min-h-screen bg-gradient-to-br from-blue-50 to-sky-100 py-12 px-4 flex flex-col items-center">
                 <div className="w-full max-w-2xl">
                     <Card className="mb-6">
@@ -135,7 +161,10 @@ export default function Testimonial() {
                                 </div>
 
                                 <div>
-                                    <Label htmlFor="email" className="font-bold">
+                                    <Label
+                                        htmlFor="email"
+                                        className="font-bold"
+                                    >
                                         Email
                                     </Label>
                                     <input
@@ -155,7 +184,9 @@ export default function Testimonial() {
                                     <input
                                         type="date"
                                         value={data.lastInfectionDate}
-                                        onChange={handleChange("lastInfectionDate")}
+                                        onChange={handleChange(
+                                            "lastInfectionDate"
+                                        )}
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
                                     />
                                 </div>
@@ -168,13 +199,14 @@ export default function Testimonial() {
                                         type="number"
                                         min="0"
                                         value={data.infectionCount}
-                                        onChange={handleChange("infectionCount")}
+                                        onChange={handleChange(
+                                            "infectionCount"
+                                        )}
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
                                         placeholder="e.g. 3"
                                     />
                                 </div>
 
-                                {/* Vaccination fields */}
                                 <div className="flex items-center space-x-2">
                                     <Checkbox
                                         id="isVaccinated"
@@ -186,7 +218,10 @@ export default function Testimonial() {
                                             }))
                                         }
                                     />
-                                    <Label htmlFor="isVaccinated" className="font-bold">
+                                    <Label
+                                        htmlFor="isVaccinated"
+                                        className="font-bold"
+                                    >
                                         Are you vaccinated?
                                     </Label>
                                 </div>
@@ -200,7 +235,9 @@ export default function Testimonial() {
                                             <input
                                                 type="text"
                                                 value={data.vaccineType}
-                                                onChange={handleChange("vaccineType")}
+                                                onChange={handleChange(
+                                                    "vaccineType"
+                                                )}
                                                 className="mt-1 block w-full rounded border border-gray-300 p-2"
                                                 placeholder="e.g. Pfizer, Moderna, J&J"
                                             />
@@ -208,13 +245,16 @@ export default function Testimonial() {
 
                                         <div>
                                             <Label className="font-bold">
-                                                How many total doses (including boosters)?
+                                                How many total doses (including
+                                                boosters)?
                                             </Label>
                                             <input
                                                 type="number"
                                                 min="0"
                                                 value={data.vaccineDoses}
-                                                onChange={handleChange("vaccineDoses")}
+                                                onChange={handleChange(
+                                                    "vaccineDoses"
+                                                )}
                                                 className="mt-1 block w-full rounded border border-gray-300 p-2"
                                                 placeholder="e.g. 3"
                                             />
@@ -224,7 +264,8 @@ export default function Testimonial() {
 
                                 <div>
                                     <Label className="font-bold">
-                                        Your Story <span className="text-red-500">*</span>
+                                        Your Story{" "}
+                                        <span className="text-red-500">*</span>
                                     </Label>
                                     <Textarea
                                         value={data.content}
@@ -237,7 +278,8 @@ export default function Testimonial() {
 
                                 <div>
                                     <Label className="font-bold">
-                                        Symptoms Experienced <span className="text-red-500">*</span>
+                                        Symptoms Experienced{" "}
+                                        <span className="text-red-500">*</span>
                                     </Label>
                                     <CreatableSelect
                                         closeMenuOnSelect={false}
@@ -290,7 +332,10 @@ export default function Testimonial() {
                                             }))
                                         }
                                     />
-                                    <Label htmlFor="anonymous" className="font-bold">
+                                    <Label
+                                        htmlFor="anonymous"
+                                        className="font-bold"
+                                    >
                                         Post Anonymously
                                     </Label>
                                 </div>

@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BanknoteArrowDown } from "lucide-react";
 
-export default function Donate() {
+export default function Donate({ auth }) {
     return (
         <div className="px-4 py-16 sm:py-20">
             <div className="max-w-4xl mx-auto text-center">

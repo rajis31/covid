@@ -1,7 +1,8 @@
 import { Link } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 
-export default function Header() {
+export default function Header({ auth }) {
+
     return (
         <header className="bg-white shadow-md sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -28,7 +29,16 @@ export default function Header() {
                     >
                         About
                     </Link>
-                     <Link
+                    {!auth?.user && (
+                        <Link
+                            href="/login"
+                            className="text-gray-700 hover:text-indigo-600 font-medium"
+                        >
+                            Login
+                        </Link>
+                    )}
+
+                    <Link
                         href={route("stats.show")}
                         className="text-gray-700 hover:text-indigo-600 font-medium"
                     >
@@ -37,12 +47,6 @@ export default function Header() {
                     <Button asChild>
                         <Link href={route("donate")}>Give Now</Link>
                     </Button>
-                    <Link
-                        href={route("login.show")}
-                        className="text-gray-700 hover:text-indigo-600 font-medium"
-                    >
-                        Login
-                    </Link>
                 </nav>
             </div>
         </header>
