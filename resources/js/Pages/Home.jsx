@@ -11,6 +11,7 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 
+
 export default function Home({ auth }) {
     const { testimonials } = usePage().props;
 

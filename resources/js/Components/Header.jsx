@@ -29,15 +29,7 @@ export default function Header({ auth }) {
                     >
                         About
                     </Link>
-                    {!auth?.user && (
-                        <Link
-                            href="/login"
-                            className="text-gray-700 hover:text-indigo-600 font-medium"
-                        >
-                            Login
-                        </Link>
-                    )}
-
+                  
                     <Link
                         href={route("stats.show")}
                         className="text-gray-700 hover:text-indigo-600 font-medium"
@@ -47,6 +39,15 @@ export default function Header({ auth }) {
                     <Button asChild>
                         <Link href={route("donate")}>Give Now</Link>
                     </Button>
+                      {!auth?.user && (
+                        <Link
+                            href="/login"
+                            className="text-gray-700 hover:text-indigo-600 font-medium"
+                        >
+                            Login
+                        </Link>
+                    )}
+
                 </nav>
             </div>
         </header>

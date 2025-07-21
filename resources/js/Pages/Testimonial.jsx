@@ -17,11 +17,11 @@ import Footer from "@/Components/Footer";
 import { symptomOptions } from "@/data/symptoms";
 import { treatmentOptions } from "@/data/treatments";
 import { router, usePage } from "@inertiajs/react";
+import { useToast } from "@/hooks/use-toast";
 
 const animatedComponents = makeAnimated();
 
 export default function Testimonial({ auth }) {
-
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -38,11 +38,23 @@ export default function Testimonial({ auth }) {
 
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
+    const { flash } = usePage().props;
+    const { toast } = useToast();
 
     const handleChange = (key) => (e) => {
         const value = e?.target?.value ?? e;
         setData((prev) => ({ ...prev, [key]: value }));
     };
+
+    useEffect(() => {
+        if (flash?.success && flash?.type === "login") {
+            toast({
+                title: "Success",
+                description: "Successfully logged in",
+                variant: "success",
+            });
+        }
+    }, [flash]);
 
     const handleSubmit = (e) => {
         e.preventDefault();

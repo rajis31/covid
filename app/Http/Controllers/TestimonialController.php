@@ -17,6 +17,7 @@ class TestimonialController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'email' => 'required|string',
             'story' => 'required|string',
             'symptoms' => 'required|array',
             'symptoms.*' => 'string',
