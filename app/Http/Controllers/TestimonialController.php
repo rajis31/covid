@@ -6,6 +6,7 @@ use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class TestimonialController extends Controller
 {
@@ -28,6 +29,7 @@ class TestimonialController extends Controller
         }
 
         Testimonial::create([
+            'user_id' => Auth::id(),
             'name' => $request->name,
             'email' => $request->email,
             'story' => $request->story,

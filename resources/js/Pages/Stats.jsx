@@ -6,11 +6,16 @@ import { ExampleChart } from "@/Components/charts/example-chart";
 import { StatsGrid } from "@/Components/charts/stats-grid";
 
 export default function Stats({ auth }) {
+     const { totalLongHaulers } = usePage().props;
+     const data = {
+        totalLongHaulers,
+     }
+
     return (
         <>
             <Header auth={auth} />
             <div className="mx-auto w-[90%] mt-[50px]">
-                <StatsGrid />
+                <StatsGrid data={data} />
                 <ExampleChart />
             </div>
 
