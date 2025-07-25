@@ -1,7 +1,11 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 
 export default function Header({ auth }) {
+    const handleLogout = (e) => {
+        e.preventDefault();
+        router.post(route("logout"));
+    };
 
     return (
         <header className="bg-white shadow-md sticky top-0 z-50">
@@ -10,7 +14,7 @@ export default function Header({ auth }) {
                     Long COVID Support
                 </Link>
 
-                <nav className="space-x-4">
+                <nav className="space-x-4 flex items-center">
                     <Link
                         href="/"
                         className="text-gray-700 hover:text-indigo-600 font-medium"
@@ -29,17 +33,24 @@ export default function Header({ auth }) {
                     >
                         About
                     </Link>
-                  
                     <Link
                         href={route("stats.show")}
                         className="text-gray-700 hover:text-indigo-600 font-medium"
                     >
                         Statistics
                     </Link>
+
                     <Button asChild>
                         <Link href={route("donate")}>Give Now</Link>
                     </Button>
-                      {!auth?.user && (
+
+                    {auth?.user ? (
+                        <form onSubmit={handleLogout}>
+                            <Button type="submit" variant="outline">
+                                Logout
+                            </Button>
+                        </form>
+                    ) : (
                         <Link
                             href="/login"
                             className="text-gray-700 hover:text-indigo-600 font-medium"
@@ -47,7 +58,6 @@ export default function Header({ auth }) {
                             Login
                         </Link>
                     )}
-
                 </nav>
             </div>
         </header>

@@ -24,7 +24,7 @@ const animatedComponents = makeAnimated();
 export default function Testimonial({ auth }) {
     const [data, setData] = useState({
         name: "",
-        email: "",
+        gender: "",
         content: "",
         isAnonymous: false,
         selectedSymptoms: [],
@@ -34,11 +34,14 @@ export default function Testimonial({ auth }) {
         isVaccinated: false,
         vaccineType: "",
         vaccineDoses: "",
+        dateOfLongCovidOnset: "",
+        hasRecovered: false,
+        dateOfRecovery: "",
     });
 
     const [submitted, setSubmitted] = useState(false);
     const [error, setError] = useState("");
-    const { flash } = usePage().props;
+    const { flash, errors } = usePage().props;
     const { toast } = useToast();
 
     const handleChange = (key) => (e) => {
@@ -58,10 +61,6 @@ export default function Testimonial({ auth }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!data.content.trim()) {
-            setError("Story is required.");
-            return;
-        }
 
         const symptomValues = data.selectedSymptoms.map((s) => s.value);
         const treatmentValues = data.selectedTreatments.map((t) => t.value);
@@ -70,23 +69,26 @@ export default function Testimonial({ auth }) {
             "/testimonial/store",
             {
                 name: data.name,
-                email: data.email,
+                gender: data.gender,
                 story: data.content,
                 is_anonymous: data.isAnonymous,
                 symptoms: symptomValues,
                 treatments: treatmentValues,
                 last_infection_date: data.lastInfectionDate,
+                date_of_long_covid_onset: data.dateOfLongCovidOnset,
                 num_of_times_infected: data.infectionCount,
                 vaccinated: data.isVaccinated,
                 vaccine_type: data.vaccineType,
                 num_of_vaccines: data.vaccineDoses,
+                has_recovered: data.hasRecovered,
+                date_of_recovery: data.dateOfRecovery,
             },
             {
                 onSuccess: () => {
                     setSubmitted(true);
                     setData({
                         name: "",
-                        email: "",
+                        gender: "",
                         content: "",
                         isAnonymous: false,
                         selectedSymptoms: [],
@@ -96,18 +98,19 @@ export default function Testimonial({ auth }) {
                         isVaccinated: false,
                         vaccineType: "",
                         vaccineDoses: "",
+                        dateOfLongCovidOnset: "",
+                        hasRecovered: false,
+                        dateOfRecovery: "",
                     });
                     setError("");
                 },
                 onError: (errors) => {
-                    console.error(errors);
                     setError("Something went wrong. Please try again.");
                 },
             }
         );
     };
 
-    // Show alert if user is not authenticated
     if (!auth) {
         return (
             <>
@@ -148,20 +151,23 @@ export default function Testimonial({ auth }) {
                             <CardContent className="space-y-4">
                                 {submitted && (
                                     <div className="text-green-700 bg-green-100 border border-green-300 p-2 rounded text-sm">
-                                        Thank you for sharing your story.
+                                        Thank you for sharing your story. You can manage your story in the dashboard section :)
                                     </div>
                                 )}
 
-                                {error && (
-                                    <div className="text-red-700 bg-red-100 border border-red-300 p-2 rounded text-sm">
-                                        {error}
+                                {errors && Object.keys(errors).length > 0 && (
+                                    <div className="text-red-700 bg-red-100 border border-red-300 p-4 rounded text-sm space-y-1">
+                                        <p className="font-bold">Please fix the following:</p>
+                                        <ul className="list-disc list-inside">
+                                            {Object.entries(errors).map(([field, message]) => (
+                                                <li key={field}>{message}</li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 )}
 
                                 <div>
-                                    <Label htmlFor="name" className="font-bold">
-                                        Name
-                                    </Label>
+                                    <Label htmlFor="name" className="font-bold">Name</Label>
                                     <input
                                         type="text"
                                         id="name"
@@ -173,47 +179,52 @@ export default function Testimonial({ auth }) {
                                 </div>
 
                                 <div>
-                                    <Label
-                                        htmlFor="email"
-                                        className="font-bold"
-                                    >
-                                        Email
+                                    <Label htmlFor="gender" className="font-bold">
+                                        Gender <span className="text-red-500">*</span>
                                     </Label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        value={data.email}
-                                        onChange={handleChange("email")}
+                                    <select
+                                        id="gender"
+                                        value={data.gender}
+                                        onChange={handleChange("gender")}
+                                        required
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
-                                        placeholder="you@example.com"
-                                    />
+                                    >
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
                                 </div>
 
                                 <div>
-                                    <Label className="font-bold">
-                                        Date of Last Infection
-                                    </Label>
+                                    <Label className="font-bold">Date of Last Infection</Label>
                                     <input
                                         type="date"
                                         value={data.lastInfectionDate}
-                                        onChange={handleChange(
-                                            "lastInfectionDate"
-                                        )}
+                                        onChange={handleChange("lastInfectionDate")}
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
                                     />
                                 </div>
 
                                 <div>
                                     <Label className="font-bold">
-                                        How Many Times Have You Been Infected?
+                                        Date of Long COVID Onset <span className="text-red-500">*</span>
                                     </Label>
+                                    <input
+                                        type="date"
+                                        value={data.dateOfLongCovidOnset}
+                                        onChange={handleChange("dateOfLongCovidOnset")}
+                                        className="mt-1 block w-full rounded border border-gray-300 p-2"
+                                    />
+                                </div>
+
+                                <div>
+                                    <Label className="font-bold">How Many Times Have You Been Infected?</Label>
                                     <input
                                         type="number"
                                         min="0"
                                         value={data.infectionCount}
-                                        onChange={handleChange(
-                                            "infectionCount"
-                                        )}
+                                        onChange={handleChange("infectionCount")}
                                         className="mt-1 block w-full rounded border border-gray-300 p-2"
                                         placeholder="e.g. 3"
                                     />
@@ -230,10 +241,7 @@ export default function Testimonial({ auth }) {
                                             }))
                                         }
                                     />
-                                    <Label
-                                        htmlFor="isVaccinated"
-                                        className="font-bold"
-                                    >
+                                    <Label htmlFor="isVaccinated" className="font-bold">
                                         Are you vaccinated?
                                     </Label>
                                 </div>
@@ -241,15 +249,11 @@ export default function Testimonial({ auth }) {
                                 {data.isVaccinated && (
                                     <>
                                         <div>
-                                            <Label className="font-bold">
-                                                Which vaccine did you receive?
-                                            </Label>
+                                            <Label className="font-bold">Which vaccine did you receive?</Label>
                                             <input
                                                 type="text"
                                                 value={data.vaccineType}
-                                                onChange={handleChange(
-                                                    "vaccineType"
-                                                )}
+                                                onChange={handleChange("vaccineType")}
                                                 className="mt-1 block w-full rounded border border-gray-300 p-2"
                                                 placeholder="e.g. Pfizer, Moderna, J&J"
                                             />
@@ -257,16 +261,13 @@ export default function Testimonial({ auth }) {
 
                                         <div>
                                             <Label className="font-bold">
-                                                How many total doses (including
-                                                boosters)?
+                                                How many total doses (including boosters)?
                                             </Label>
                                             <input
                                                 type="number"
                                                 min="0"
                                                 value={data.vaccineDoses}
-                                                onChange={handleChange(
-                                                    "vaccineDoses"
-                                                )}
+                                                onChange={handleChange("vaccineDoses")}
                                                 className="mt-1 block w-full rounded border border-gray-300 p-2"
                                                 placeholder="e.g. 3"
                                             />
@@ -276,8 +277,7 @@ export default function Testimonial({ auth }) {
 
                                 <div>
                                     <Label className="font-bold">
-                                        Your Story{" "}
-                                        <span className="text-red-500">*</span>
+                                        Your Story <span className="text-red-500">*</span>
                                     </Label>
                                     <Textarea
                                         value={data.content}
@@ -290,8 +290,7 @@ export default function Testimonial({ auth }) {
 
                                 <div>
                                     <Label className="font-bold">
-                                        Symptoms Experienced{" "}
-                                        <span className="text-red-500">*</span>
+                                        Symptoms Experienced <span className="text-red-500">*</span>
                                     </Label>
                                     <CreatableSelect
                                         closeMenuOnSelect={false}
@@ -312,9 +311,7 @@ export default function Testimonial({ auth }) {
                                 </div>
 
                                 <div>
-                                    <Label className="font-bold">
-                                        Treatments or Supplements Used
-                                    </Label>
+                                    <Label className="font-bold">Treatments or Supplements Used</Label>
                                     <CreatableSelect
                                         closeMenuOnSelect={false}
                                         components={animatedComponents}
@@ -335,6 +332,36 @@ export default function Testimonial({ auth }) {
 
                                 <div className="flex items-center space-x-2">
                                     <Checkbox
+                                        id="hasRecovered"
+                                        checked={data.hasRecovered}
+                                        onCheckedChange={(val) =>
+                                            setData((prev) => ({
+                                                ...prev,
+                                                hasRecovered: !!val,
+                                            }))
+                                        }
+                                    />
+                                    <Label htmlFor="hasRecovered" className="font-bold">
+                                        Have you recovered?
+                                    </Label>
+                                </div>
+
+                                {data.hasRecovered && (
+                                    <div>
+                                        <Label className="font-bold">
+                                            Date of Recovery <span className="text-red-500">*</span>
+                                        </Label>
+                                        <input
+                                            type="date"
+                                            value={data.dateOfRecovery}
+                                            onChange={handleChange("dateOfRecovery")}
+                                            className="mt-1 block w-full rounded border border-gray-300 p-2"
+                                        />
+                                    </div>
+                                )}
+
+                                <div className="flex items-center space-x-2">
+                                    <Checkbox
                                         id="anonymous"
                                         checked={data.isAnonymous}
                                         onCheckedChange={(val) =>
@@ -344,10 +371,7 @@ export default function Testimonial({ auth }) {
                                             }))
                                         }
                                     />
-                                    <Label
-                                        htmlFor="anonymous"
-                                        className="font-bold"
-                                    >
+                                    <Label htmlFor="anonymous" className="font-bold">
                                         Post Anonymously
                                     </Label>
                                 </div>

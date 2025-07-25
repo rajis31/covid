@@ -18,9 +18,9 @@ export function StatsGrid({ data }) {
 
     const stats = [
         { label: "Total Long Haulers", value: data?.totalLongHaulers },
-        { label: "% Fully Recovered", value: "43%" },
-        { label: "New Long Haulers YTD", value: "150" },
-        { label: "Avg. Recovery Time", value: "6.2 Months" },
+        { label: "% Fully Recovered", value: `${data?.percentFullyRecovered}%` },
+        { label: "New Long Haulers YTD", value: data?.newHaulersYTD},
+        { label: "Avg. Recovery Time", value: `${data?.averageRecoveryDuration ?? 0} months`},
     ];
 
     return (

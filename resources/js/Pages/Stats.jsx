@@ -6,10 +6,22 @@ import { ExampleChart } from "@/Components/charts/example-chart";
 import { StatsGrid } from "@/Components/charts/stats-grid";
 
 export default function Stats({ auth }) {
-     const { totalLongHaulers } = usePage().props;
-     const data = {
+    const {
         totalLongHaulers,
-     }
+        percentFullyRecovered,
+        averageRecoveryDuration,
+        newHaulersYTD,
+        topSymptoms
+    } = usePage().props;
+
+    console.log(topSymptoms);
+    
+    const data = {
+        totalLongHaulers,
+        percentFullyRecovered,
+        averageRecoveryDuration,
+        newHaulersYTD
+    };
 
     return (
         <>
