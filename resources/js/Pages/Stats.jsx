@@ -4,6 +4,7 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import { ExampleChart } from "@/Components/charts/example-chart";
 import { StatsGrid } from "@/Components/charts/stats-grid";
+import { GenderBreakdownChart } from "@/Components/charts/gender-chart";
 
 export default function Stats({ auth }) {
     const {
@@ -28,7 +29,7 @@ export default function Stats({ auth }) {
             <Header auth={auth} />
             <div className="mx-auto w-[90%] mt-[50px]">
                 <StatsGrid data={data} />
-                <ExampleChart />
+                <GenderBreakdownChart />
             </div>
 
             <Footer />
