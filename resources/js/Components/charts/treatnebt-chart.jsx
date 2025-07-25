@@ -29,7 +29,7 @@ const chartConfig = {
     },
 };
 
-export function ExampleChart() {
+export function TreatnebtChart() {
     return (
         <Card className="shadow-md rounded-xl border border-gray-200">
             <CardHeader>
