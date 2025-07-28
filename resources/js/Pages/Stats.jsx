@@ -2,7 +2,6 @@ import React from "react";
 import { Link, usePage } from "@inertiajs/react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
-import { ExampleChart } from "@/Components/charts/example-chart";
 import { StatsGrid } from "@/Components/charts/stats-grid";
 import { GenderBreakdownChart } from "@/Components/charts/gender-chart";
 
