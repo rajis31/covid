@@ -7,20 +7,14 @@ import {
     CartesianGrid,
     ResponsiveContainer,
 } from "recharts";
-import {
-    Card,
-    CardHeader,
-    CardTitle,
-    CardContent,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-const genderData = [
-    { gender: "Female", percent: 65 },
-    { gender: "Male", percent: 30 },
-    { gender: "Other", percent: 2 },
-];
-
-export function GenderBreakdownChart() {
+export function GenderBreakdownChart({ data }) {
+    const genderData = Object.entries(data).map(([gender, percent]) => {
+        const formattedGender =
+            gender.charAt(0).toUpperCase() + gender.slice(1);
+        return { gender: formattedGender, percent };
+    });
     return (
         <Card className="shadow-md rounded-xl border border-gray-200">
             <CardHeader>
@@ -32,7 +26,12 @@ export function GenderBreakdownChart() {
                         <BarChart
                             layout="vertical"
                             data={genderData}
-                            margin={{ top: 20, right: 30, left: 60, bottom: 20 }}
+                            margin={{
+                                top: 20,
+                                right: 30,
+                                left: 60,
+                                bottom: 20,
+                            }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis
@@ -50,7 +49,11 @@ export function GenderBreakdownChart() {
                                 formatter={(val) => `${val}%`}
                                 cursor={{ fill: "rgba(0,0,0,0.05)" }}
                             />
-                            <Bar dataKey="percent" fill="#3b82f6" radius={[0, 6, 6, 0]} />
+                            <Bar
+                                dataKey="percent"
+                                fill="#3b82f6"
+                                radius={[0, 6, 6, 0]}
+                            />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>

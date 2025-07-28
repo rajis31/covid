@@ -25,14 +25,12 @@ export default function Stats({ auth }) {
         haulersByGender
     };
 
-    console.log(haulersByGender);
-
     return (
         <>
             <Header auth={auth} />
             <div className="mx-auto w-[90%] mt-[50px]">
                 <StatsGrid data={data} />
-                <GenderBreakdownChart />
+                <GenderBreakdownChart data={haulersByGender} />
             </div>
 
             <Footer />
