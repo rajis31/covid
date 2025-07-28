@@ -11,7 +11,8 @@ export default function Stats({ auth }) {
         percentFullyRecovered,
         averageRecoveryDuration,
         newHaulersYTD,
-        topSymptoms
+        topSymptoms,
+        haulersByGender
     } = usePage().props;
 
     console.log(topSymptoms);
@@ -20,8 +21,11 @@ export default function Stats({ auth }) {
         totalLongHaulers,
         percentFullyRecovered,
         averageRecoveryDuration,
-        newHaulersYTD
+        newHaulersYTD,
+        haulersByGender
     };
+
+    console.log(haulersByGender);
 
     return (
         <>

@@ -60,24 +60,41 @@ class StatsRepository
         ");
     }
 
-    public function haulersByGender(): array 
+    public function haulersByGender(): array
     {
-
         $total = Testimonial::count();
 
-        if($total === 0)
-        {
+        if ($total === 0) {
             return [
                 'male' => 0,
                 'female' => 0,
                 'other' => 0
             ];
         }
-        $res = Testimonial::select("gender", DB::raw("count(*) as count"))
-                        ->groupBy("gender")
-                        ->pluck("count", "gender")
-                        ->toArray();
-        
-        return $res;
+        $res = Testimonial::select('gender', DB::raw('count(*) as count'))
+            ->groupBy('gender')
+            ->pluck('count', 'gender')
+            ->toArray();
+
+        $percentages = [];
+        foreach ($res as $gender => $count) {
+            if ($gender === null) {
+                $percentages['other'] = round(($count / $total) * 100, 1);
+            } else {
+                $percentages[$gender] = round(($count / $total) * 100, 1);
+            }
+        }
+
+        if (!array_key_exists('male', $percentages)) {
+            $percentages['male'] = 0;
+        }
+        if (!array_key_exists('female', $percentages)) {
+            $percentages['female'] = 0;
+        }
+        if (!array_key_exists('other', $percentages)) {
+            $percentages['other'] = 0;
+        }
+
+        return $percentages;
     }
 }
