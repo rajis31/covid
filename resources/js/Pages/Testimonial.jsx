@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
 import makeAnimated from "react-select/animated";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
+import { Textarea } from "@/Components/ui/textarea";
+import { Button } from "@/Components/ui/button";
 import {
     Card,
     CardHeader,
