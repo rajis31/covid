@@ -7,7 +7,7 @@ import {
     ChartLegendContent,
 } from "../ui/chart";
 
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/Components/ui/card";
 
 const chartData = [
     { month: "January", desktop: 186, mobile: 80 },

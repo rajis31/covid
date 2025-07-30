@@ -9,9 +9,9 @@ import {
     CardTitle,
     CardContent,
     CardFooter,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+} from "@/Components/ui/card";
+import { Label } from "@/Components/ui/label";
+import { Checkbox } from "@/Components/ui/checkbox";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import { symptomOptions } from "@/data/symptoms";

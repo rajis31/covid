@@ -4,13 +4,13 @@ import {
     CardHeader,
     CardTitle,
     CardContent,
-} from "@/components/ui/card";
+} from "@/Components/ui/card";
 import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { Button } from "@/components/ui/button";
+} from "@/Components/ui/collapsible";
+import { Button } from "@/Components/ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
 export function StatsGrid({ data }) {

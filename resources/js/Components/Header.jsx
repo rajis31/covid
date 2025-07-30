@@ -1,5 +1,5 @@
 import { Link, router } from "@inertiajs/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/Components/ui/button";
 
 export default function Header({ auth }) {
     const handleLogout = (e) => {

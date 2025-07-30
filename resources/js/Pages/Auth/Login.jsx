@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/Components/ui/input";
+import { Label } from "@/Components/ui/label";
+import { Button } from "@/Components/ui/button";
 import {
     Card,
     CardHeader,
     CardTitle,
     CardContent,
     CardFooter,
-} from "@/components/ui/card";
+} from "@/Components/ui/card";
 import { Link, usePage, router } from "@inertiajs/react";
 import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
@@ -21,7 +21,7 @@ export default function LoginPage() {
 
 
     console.log(props);
-    
+
     const successMessage = props.flash?.success;
     const recoveryCode = props.flash?.recovery_code;
 
