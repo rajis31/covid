@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -38,8 +39,14 @@ class AuthController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => \Illuminate\Support\Facades\Hash::make($request->input('password')),
+            'recovery_code' => $recoveryCode,
         ]);
 
-        return redirect()->route('login.show')->with('success', 'Account created successfully. Please log in.');
-    }
+        return redirect()
+            ->route('login.show')
+            ->with([
+                'success' => 'Account created successfully. Please save your recovery code.',
+                'recovery_code' => $user->recovery_code
+            ]);
+            }
 }

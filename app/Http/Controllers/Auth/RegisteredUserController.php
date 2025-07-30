@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
+
 
 class RegisteredUserController extends Controller
 {
@@ -36,16 +38,26 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $recoveryCode = Str::random(6);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'recovery_code' => $recoveryCode,
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect()
+            ->route('login')
+            ->with([
+                'success' => 'Account created successfully. Please save your recovery code.',
+                'recovery_code' => $recoveryCode,
+            ]);
+            
     }
 }

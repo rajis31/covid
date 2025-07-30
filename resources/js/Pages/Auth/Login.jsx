@@ -18,11 +18,13 @@ export default function LoginPage() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const { props } = usePage();
-    const successMessage = props.flash?.success;
 
-    useEffect(() => {
-        console.log(successMessage);
-    }, [successMessage]);
+
+    console.log(props);
+    
+    const successMessage = props.flash?.success;
+    const recoveryCode = props.flash?.recovery_code;
+
 
     const handleLogin = () => {
         if (!email || !password) {
@@ -73,6 +75,20 @@ export default function LoginPage() {
                             </div>
                         )}
 
+                        {successMessage && (
+                            <div className="bg-green-100 text-green-800 border border-green-300 p-3 mb-4 rounded text-sm text-center space-y-2">
+                                <p>{successMessage}</p>
+                                {recoveryCode && (
+                                    <div className="font-mono text-lg font-bold text-green-900">
+                                        Recovery Code:{" "}
+                                        <span className="bg-white px-2 py-1 rounded border border-green-400">
+                                            {recoveryCode}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
                         <div className="grid gap-2">
                             <Label htmlFor="email">Email</Label>
                             <Input
@@ -103,11 +119,6 @@ export default function LoginPage() {
                                 Forgot password?
                             </Link>
                         </div>
-                        {successMessage && (
-                            <div className="bg-green-100 text-green-800 border border-green-300 p-2 mb-4 rounded text-sm text-center">
-                                {successMessage}
-                            </div>
-                        )}
                     </CardContent>
 
                     <CardFooter className="flex flex-col gap-3">
