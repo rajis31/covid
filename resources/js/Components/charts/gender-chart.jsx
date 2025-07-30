@@ -7,7 +7,7 @@ import {
     CartesianGrid,
     ResponsiveContainer,
 } from "recharts";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/Components/ui/card";
 
 export function GenderBreakdownChart({ data }) {
     const genderData = Object.entries(data).map(([gender, percent]) => {
