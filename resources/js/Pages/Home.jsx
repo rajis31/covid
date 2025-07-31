@@ -107,36 +107,7 @@ export default function Home({ auth }) {
                     </div>
                 </section>
 
-                {/* Research Section */}
-                <section className="py-20 px-6 bg-white">
-                    <div className="max-w-5xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold mb-6">
-                            Research Areas of Focus
-                        </h2>
-                        <p className="text-gray-700 text-lg mb-10">
-                            We support fast-moving studies focused on:
-                        </p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left text-gray-800">
-                            <ul className="space-y-3 list-disc list-inside">
-                                <li>
-                                    📊 Data-driven analysis of symptoms and
-                                    treatments
-                                </li>
-                                <li>
-                                    🧪 Biomarker and immune response testing
-                                </li>
-                            </ul>
-                            <ul className="space-y-3 list-disc list-inside">
-                                <li>
-                                    🧠 Neurological and autonomic dysfunction
-                                    research
-                                </li>
-                                <li>🌍 Global patient-led studies</li>
-                            </ul>
-                        </div>
-                    </div>
-                </section>
-
+    
                 {/* Testimonial Carousel */}
                 <section className="py-16 px-6 bg-gray-100">
                     <div className="max-w-5xl mx-auto">
