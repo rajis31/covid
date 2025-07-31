@@ -20,31 +20,29 @@ Route::get('/about', function () {
     return Inertia::render('About');
 })->name('about');
 
-Route::get('/donate', function () {
-    return Inertia::render('Donate');
-})->name('donate');
+
+Route::post('/register', [AuthController::class, 'register'])
+    ->name('register');
+
+Route::middleware(['auth'])->group(function () {
+    Route::group(['prefix' => 'testimonial'], function () {
+        Route::get('/', [TestimonialController::class, 'showTestimonial'])->name("testimonial.show");
+        Route::post('/store', [TestimonialController::class, 'store']);
+    });
+});
+
+// Stats
+Route::get('/stats', [StatsController::class, 'showStats'])
+    ->name('stats.show');
+
+// Route::get('/donate', function () {
+//     return Inertia::render('Donate');
+// })->name('donate');
 
 // Route::get('/login', [AuthController::class, 'showLogin'])
 //     ->name('login');
 
 // Route::get('/register', [AuthController::class, 'showRegister'])
 //     ->name('register.show');
-
-Route::post('/register', [AuthController::class, 'register'])
-    ->name('register');
-
-
-
-Route::middleware(['auth'])->group(function () {
-    Route::group(['prefix' => 'testimonial'], function () {
-        Route::get('/', [TestimonialController::class, 'showTestimonial']);
-        Route::post('/store', [TestimonialController::class, 'store']);
-    });
-});
-
-
-// Stats
-Route::get('/stats', [StatsController::class, 'showStats'])
-    ->name('stats.show');
 
 require __DIR__.'/auth.php';
