@@ -35,9 +35,9 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/stats', [StatsController::class, 'showStats'])
     ->name('stats.show');
 
-Route::get('/donate', function () {
-    return Inertia::render('Donate');
-})->name('donate');
+// Route::get('/donate', function () {
+//     return Inertia::render('Donate');
+// })->name('donate');
 
 // Route::get('/login', [AuthController::class, 'showLogin'])
 //     ->name('login');
