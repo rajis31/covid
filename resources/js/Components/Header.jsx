@@ -44,7 +44,13 @@ export default function Header({ auth }) {
                     >
                         About
                     </Link>
-                    <Button asChild>
+                    <Link
+                        href={route("testimonial.show")}
+                        className="text-gray-700 hover:text-indigo-600 font-medium"
+                    >
+                        Your Story
+                    </Link>
+                     <Button asChild>
                         <Link
                             href={route("stats.show")}
                             className="text-gray-700 hover:text-indigo-600 font-medium"
@@ -52,12 +58,6 @@ export default function Header({ auth }) {
                             Statistics
                         </Link>
                     </Button>
-                    <Link
-                        href={route("testimonial.show")}
-                        className="text-gray-700 hover:text-indigo-600 font-medium"
-                    >
-                        Your Story
-                    </Link>
                     {auth?.user ? (
                         <form onSubmit={handleLogout}>
                             <Button type="submit" variant="outline">

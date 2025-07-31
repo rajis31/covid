@@ -10,6 +10,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/Components/ui/carousel";
+import CookieConsent from "@/Components/CookieConsent";
 
 
 export default function Home({ auth }) {
@@ -66,6 +67,11 @@ export default function Home({ auth }) {
                             alone, cycling through doctors just to be heard, let
                             alone treated. Many are unable to work, and some
                             face severe financial hardship.
+                        </p>
+                        <p className="mb-4 text-lg leading-relaxed">
+                            We are in need of diagnostics, treatments and doctors 
+                            who will actually listen to us so  people with long covid 
+                            can go back to living their life. No one deserves to live like this.
                         </p>
                     </div>
                 </section>
@@ -172,6 +178,7 @@ export default function Home({ auth }) {
                             </div>
                         )}
                     </div>
+                   <CookieConsent />
                 </section>
             </div>
             <Footer />
